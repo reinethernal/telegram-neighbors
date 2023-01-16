@@ -146,15 +146,19 @@ def menu_kbd(bot, update):
     """show keyboard to chose: show neighbors or edit own info"""
     log.info(log_msg(update))
     if User.get(user_id=update.effective_user.id).house and User.get(user_id=update.effective_user.id).section:
-        keyboard = [[InlineKeyboardButton('Дивитись сусідів 👫', callback_data='show')],
-                    [InlineKeyboardButton('Змінити свої дані ✏', callback_data='edit')],
-                    [InlineKeyboardButton('Важлива інфа ℹ', callback_data='building')],
-                    [InlineKeyboardButton('Статистика бота 📊️', callback_data='statistics')],
-                    [InlineKeyboardButton('Мій будинок 🏠', callback_data='house_neighbors'),
-                     InlineKeyboardButton('Мій під\'їзд 🔢', callback_data='section_neighbors')],
-                    [InlineKeyboardButton('Сповіщення 🔔', callback_data='notifications')]]
+         keyboard = [[InlineKeyboardButton('Смотреть соседей 👫', callback_data='show')],
+                    [InlineKeyboardButton('Изменить свои данные ✏', callback_data='edit')],
+                    [InlineKeyboardButton('Важная инфа ℹ', callback_data='building')]
+                    [InlineKeyboardButton('Статистика бота 📊️', callback_data='статистика')],
+                    [InlineKeyboardButton('Статистика бота 📊️', callback_data='статистика')]
+                    [InlineKeyboardButton('Мой дом 🏠', callback_data='house_neighbors')],
+                    [InlineKeyboardButton('Мой дом 🏠', callback_data='house_neighbors')
+                    InlineKeyboardButton('Мой подъезд 🔢', callback_data='section_neighbors')]
+                    [InlineKeyboardButton('Оповещения 🔔', callback_data='notifications')]]
+
+Переведено с помощью www.DeepL.com/Translator (бесплатная версия)
     else:
-        keyboard = [[InlineKeyboardButton('Додати свої дані 📝', callback_data='edit')]]
+        keyboard = [[InlineKeyboardButton('Добавить свои данные 📝', callback_data='edit')]]
     reply_markup = InlineKeyboardMarkup(keyboard)
     bot.sendMessage(chat_id=update.effective_user.id, text='Меню:',
                     reply_markup=reply_markup, parse_mode=ParseMode.HTML)
@@ -172,11 +176,11 @@ def check_owns(bot, update):
             return
         else:
             if not User.get(user_id=update.effective_user.id).house:
-                text = 'В якому Ви будинку? '
+                text = 'В каком Вы доме? '
                 set_houses_kbd(bot, update, text)
             else:
-                text = 'Змінюємо Ваші дані:\n' + User.get(
-                    user_id=update.effective_user.id).setting_str() + '\nВ якому Ви будинку? '
+                text = 'Изменяем Ваши данные:\n' + User.get(
+                    user_id=update.effective_user.id).setting_str() + '\nВ каком Вы доме? '
                 set_houses_kbd(bot, update, text)
     # if more than 1 records for user, call func for select
     else:
